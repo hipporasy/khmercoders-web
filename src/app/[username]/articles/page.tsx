@@ -6,6 +6,7 @@ import { getDB } from '@/libs/db';
 import { ArticlePreviewItem } from '@/components/article-item';
 import { bindingArticleListLikeStatus } from '@/server/services/article';
 import { MainLayout } from '@/components/blocks/layout/MainLayout';
+import { bindingFollowerStatusFromUser } from '@/server/services/followers';
 
 export default async function UserArticleListPage({
   params,
@@ -15,6 +16,10 @@ export default async function UserArticleListPage({
   const { username } = await params;
   const { session } = await getSession();
   const profile = await getProfileFromUsernameCache(username);
+
+  profile.user = session?.user?.id
+    ? await bindingFollowerStatusFromUser(profile.user, session.user.id)
+    : profile.user;
 
   // Getting all the article
   const db = await getDB();
