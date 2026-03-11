@@ -60,15 +60,13 @@ export function ProfileHeader({ selectedTab = 'profile', profile, user }: Profil
       <nav className="container relative z-10 mx-auto text-sm flex">
         <Link
           href={`/@${profile.alias}`}
-          className={cn('p-2 px-4 border-b-4', { 'border-orange-500': selectedTab === 'profile' })}
+          className={cn('p-2 px-4 border-b-4', selectedTab === 'profile' ? 'border-orange-500' : 'border-background')}
         >
           Profile
         </Link>
         <Link
           href={`/@${profile.alias}/articles`}
-          className={cn('p-2 px-4 border-b-4 border-background', {
-            'border-orange-500': selectedTab === 'articles',
-          })}
+          className={cn('p-2 px-4 border-b-4', selectedTab === 'articles' ? 'border-orange-500' : 'border-background')}
         >
           Articles
         </Link>
